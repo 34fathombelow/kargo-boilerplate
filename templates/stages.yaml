@@ -8,5 +8,9 @@ metadata:
 spec:
   subscriptions: {{ toYaml .subscriptions | nindent 4 }}
   promotionMechanisms: {{ toYaml .promotionMechanisms | nindent 4 }}
+  {{- with .verification }}
+  verification:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
 ---
 {{- end }}

@@ -1,0 +1,11 @@
+{{- range .Values.analysisTemplates }}
+apiVersion: argoproj.io/v1alpha1
+kind: AnalysisTemplate
+metadata:
+  name: {{ .name }}
+  namespace: {{ include "kargo-boilerplate.name" $ }}
+  annotations: {{ toYaml .annotations | nindent 4 }}
+spec:
+{{- toYaml .spec | nindent 2 }}
+---
+{{- end }}
