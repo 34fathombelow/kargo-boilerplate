@@ -1,0 +1,74 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: kargo-stages
+  namespace: argocd
+spec:
+  goTemplate: true
+  generators:
+    - matrix:
+        generators:
+          - git:
+              repoURL: https://github.com/blakepettersson/kargo-boilerplate.git
+              revision: main
+              files:
+                - path: "config/apps/*.yaml"
+          - git:
+              repoURL: https://github.com/blakepettersson/kargo-boilerplate.git
+              revision: main
+              files:
+                - path: "config/stages/*.yaml"
+  template:
+    metadata:
+      name: 'kargo-{{.appName}}-stage-{{.stageName}}'
+    spec:
+      project: kargo-project
+      source:
+        targetRevision: main
+        repoURL: https://github.com/blakepettersson/kargo-boilerplate.git
+        path: .
+      destination:
+        name: kargo1
+      syncPolicy:
+        automated: {}
+        retry:
+          limit: 5
+          backoff:
+            duration: 5s
+            maxDuration: 3m0s
+            factor: 2
+        syncOptions:
+        - CreateNamespace=true
+  templatePatch: |
+    spec:
+      source:
+        helm:
+          valuesObject:
+            project:
+              create: false
+            warehouse:
+              create: false
+            nameOverride: '{{.appName}}'
+            stages:
+              - name: '{{.appName}}'
+                annotations:
+                  kargo.akuity.io/color: '{{.color}}'
+                requestedFreight:
+                  - origin:
+                      kind: Warehouse
+                      name: '{{.appName}}'
+                    sources:
+                      direct: {{empty .upstreamStages}}
+                      stages: {{.upstreamStages}}
+                promotionMechanisms:
+                  argoCDAppUpdates:
+                    - appName: '{{.appName}}-{{.stageName}}'
+                      sourceUpdates:
+                        - repoURL: '{{.registry}}'
+                          chart: '{{.chart}}'
+                          helm:
+                            images:
+                              - image: '{{.image}}'
+                                key: image.tag
+                                value: Tag # Update Application to reference the new image version
+                          updateTargetRevision: true # Update Application to reference the new chart version   

@@ -1,3 +1,4 @@
+{{- if .Values.warehouse.create }}
 apiVersion: kargo.akuity.io/v1alpha1
 kind: Warehouse
 metadata:
@@ -5,3 +6,4 @@ metadata:
   namespace: {{ include "kargo-boilerplate.name" . }}
 spec:
   subscriptions: {{ toYaml .Values.warehouse.subscriptions | nindent 4 }}
+{{- end }}

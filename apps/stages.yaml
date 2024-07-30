@@ -1,0 +1,46 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: stages
+  namespace: argocd
+spec:
+  ignoreApplicationDifferences:
+    - jqPathExpressions:
+        - .spec.source.targetRevision
+        - .spec.source.helm.parameters
+  goTemplate: true
+  generators:
+    - matrix:
+        generators:
+          - git:
+              repoURL: https://github.com/blakepettersson/kargo-boilerplate.git
+              revision: main
+              files:
+                - path: "config/apps/*.yaml"
+          - git:
+              repoURL: https://github.com/blakepettersson/kargo-boilerplate.git
+              revision: main
+              files:
+                - path: "config/stages/*.yaml"
+  template:
+    metadata:
+      name: '{{.appName}}-{{.stageName}}'
+      annotations:
+        kargo.akuity.io/authorized-stage: '{{.appName}}:{{.stageName}}'
+    spec:
+      project: kargo-project
+      source:
+        repoURL: '{{.registry | trimPrefix "oci://" }}'
+        chart: '{{.chart}}'
+        # Kargo will update targetRevision to move new charts into each stage
+        targetRevision: 0.1.0 # Initial value needs to exist in remote repo, subsequent revisions will be handled by Kargo.
+        helm:
+          valueFiles:
+            - 'values-{{.stageName}}.yaml' # This is a values file that is _baked into_ the OCI Helm chart.
+      destination:
+        name: '{{.stageName}}'
+        namespace: '{{.appName}}'
+      # Autosync NOT enabled for application stages, since the syncing is managed via Kargo.
+      syncPolicy:
+        syncOptions:
+          - CreateNamespace=true
