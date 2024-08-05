@@ -59,7 +59,9 @@ spec:
                       name: '{{.appName}}'
                     sources:
                       direct: {{empty .upstreamStages}}
+                      {{- if not empty .upstreamStages }}
                       stages: {{.upstreamStages}}
+                      {{- end }}
                 promotionMechanisms:
                   argoCDAppUpdates:
                     - appName: '{{.appName}}-{{.stageName}}'
