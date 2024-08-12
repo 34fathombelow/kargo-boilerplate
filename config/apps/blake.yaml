@@ -1,4 +1,4 @@
 appName: oci-guestbook
 registry: oci://registry-1.docker.io/blaaake
 chart: helm-guestbook
-image: ghcr.io/dhpup/guestbook
+image: ghcr.io/34fathombelow/akuity_guestbook
