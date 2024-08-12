@@ -61,7 +61,7 @@ spec:
                       {{- if (empty .upstreamStages) }}
                       direct: true
                       {{else}}
-                      stages: {{.appName}}-{{.stageName}}
+                      stages: {{.upstreamStages}}
                       {{- end }}
                 promotionMechanisms:
                   argoCDAppUpdates:
