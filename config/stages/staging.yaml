@@ -1,4 +1,4 @@
-stageName: staging
-color: yellow
-upstreamStages:
-  - dev
+#stageName: staging
+#color: yellow
+#upstreamStages:
+#  - dev
