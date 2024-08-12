@@ -8,5 +8,6 @@ project:
 warehouse:
   create: true
   requestedFreight: []
-stages: []
+stages:
+  - dev
 analysisTemplates: []
