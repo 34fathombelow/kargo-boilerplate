@@ -1,4 +1,4 @@
-stageName: staging
+stageName: test
 color: yellow
 upstreamStages:
   - dev
