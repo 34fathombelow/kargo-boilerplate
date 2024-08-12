@@ -33,7 +33,7 @@ spec:
         repoURL: '{{.registry | trimPrefix "oci://" }}'
         chart: '{{.chart}}'
         # Kargo will update targetRevision to move new charts into each stage
-        targetRevision: 0.1.0 # Initial value needs to exist in remote repo, subsequent revisions will be handled by Kargo.
+        targetRevision: 0.1.1 # Initial value needs to exist in remote repo, subsequent revisions will be handled by Kargo.
         helm:
           valueFiles:
             - 'values-{{.stageName}}.yaml' # This is a values file that is _baked into_ the OCI Helm chart.
