@@ -60,7 +60,7 @@ spec:
                     sources:
                       {{- if (empty .upstreamStages) }}
                       direct: true
-                      {{- if not (empty .upstreamStages) }}
+                      {{else}}
                       stages: {{.upstreamStages}}
                       {{- end }}
                 promotionMechanisms:
