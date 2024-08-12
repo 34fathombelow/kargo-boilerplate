@@ -50,7 +50,7 @@ spec:
               create: false
             nameOverride: '{{.appName}}'
             stages:
-              - name: '{{.appName}}-test'
+              - name: '{{.appName}}-{{.stageName}}'
                 annotations:
                   kargo.akuity.io/color: '{{.color}}'
                 requestedFreight:
