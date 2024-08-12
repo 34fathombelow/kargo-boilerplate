@@ -48,7 +48,7 @@ spec:
               create: false
             warehouse:
               create: false
-            nameOverride: '{{.appName}}-{{.stageName}}'
+            nameOverride: '{{.appName}}'
             stages:
               - name: '{{.appName}}'
                 annotations:
