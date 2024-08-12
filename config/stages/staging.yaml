@@ -1,4 +1,4 @@
 stageName: staging
 color: yellow
 upstreamStages:
-  - oci-guestbook-dev
+  - dev
