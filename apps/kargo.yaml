@@ -58,7 +58,8 @@ spec:
                       kind: Warehouse
                       name: '{{.appName}}'
                     sources:
-                      direct: {{empty .upstreamStages}}
+                      {{- if (empty .upstreamStages) }}
+                      direct: true
                       {{- if not (empty .upstreamStages) }}
                       stages: {{.upstreamStages}}
                       {{- end }}
