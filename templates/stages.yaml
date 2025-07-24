@@ -2,12 +2,13 @@
 apiVersion: kargo.akuity.io/v1alpha1
 kind: Stage
 metadata:
-  name: {{ .name }}
-  namespace: {{ include "kargo-boilerplate.name" $ }}
-  annotations: {{ toYaml .annotations | nindent 4 }}
+  name: {{.name}}
+  namespace: {{include "kargo-boilerplate.name" $}}
+  annotations: {{toYaml .annotations | nindent 4}}
 spec:
-  requestedFreight: {{ toYaml .requestedFreight | nindent 4 }}
-  promotionMechanisms: {{ toYaml .promotionMechanisms | nindent 4 }}
+  requestedFreight: {{toYaml .requestedFreight | nindent 4}}
+  shard: {{.shard}}
+  promotionTemplate: {{toYaml .promotionTemplate | nindent 4}}
   {{- with .verification }}
   verification:
     {{- toYaml . | nindent 4 }}
