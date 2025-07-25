@@ -62,7 +62,7 @@ spec:
                       - uses: argocd-update
                         config:
                           apps:
-                            - name: '{{.stamp}}-{{.appName}}-testing'
+                            - name: '{{.stamp}}-{{.appName}}-dev'
                               sources:
                                 - chart: '{{ .chartName }}'
                                   repoURL: '{{ .registry }}'
@@ -102,7 +102,7 @@ spec:
                         #   timeout: 1h
                         config:
                           apps:
-                            - name: '{{.stamp}}-{{.appName}}-preview'
+                            - name: '{{.stamp}}-{{.appName}}-test'
                               sources:
                                 - chart: '{{ .chartName }}'
                                   repoURL: '{{ .registry }}'
