@@ -32,7 +32,7 @@ spec:
     spec:
       project: kargo-project
       source:
-        repoURL: '{{.registry }}'
+        repoURL: '{{ .registry }}'
         chart: '{{ .chartName }}'
         # Kargo will update targetRevision to move new charts into each stage
         targetRevision: 0.1.0 # Initial value needs to exist in remote repo, subsequent revisions will be handled by Kargo.

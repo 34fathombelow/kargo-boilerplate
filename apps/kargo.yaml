@@ -26,7 +26,7 @@ spec:
             warehouse:
               subscriptions:
                 - chart:
-                    repoURL: '{{ .registry }}/{{ .chartName }}'
+                    repoURL: 'oci://{{ .registry }}/{{ .chartName }}'
                 - image:
                     repoURL: '{{.image}}'
             project:
