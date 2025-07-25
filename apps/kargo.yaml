@@ -68,9 +68,8 @@ spec:
                                   chart: '{{ .chartName }}'
                                   helm:
                                     images:
-                                    - repoURL: '{{ .registry }}/{{ .appName }}'
-                                      key: image.tag
-                                      value: Tag
+                                      - key: image.tag
+                                        value: Tag
                                   updateTargetRevision: true
                                   desiredRevision: '${{`{{`}} chartFrom("oci://registry-1.docker.io/blaaake/helm-guestbook").Version }}'
               - name: test
@@ -107,9 +106,8 @@ spec:
                                   chart: '{{ .chartName }}'
                                   helm:
                                     images:
-                                    - repoURL: '{{ .registry }}/{{ .appName }}'
-                                      key: image.tag
-                                      value: Tag
+                                      - key: image.tag
+                                        value: Tag
                                   updateTargetRevision: true
                                   desiredRevision: '${{`{{`}} chartFrom("oci://registry-1.docker.io/blaaake/helm-guestbook").Version }}'
 
