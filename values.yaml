@@ -4,6 +4,7 @@
 
 project:
 projectConfig:
+  namespace: []
   promotionPolicies: []
 warehouse:
   subscriptions: []
