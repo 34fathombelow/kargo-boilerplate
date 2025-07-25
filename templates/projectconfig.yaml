@@ -2,5 +2,6 @@ apiVersion: kargo.akuity.io/v1alpha1
 kind: ProjectConfig
 metadata:
   name: {{ include "kargo-boilerplate.name" . }}
+  namespace: {{ .Values.projectConfig.namespace | nindent 4 }}
 spec:
   promotionPolicies: {{ toYaml .Values.projectConfig.promotionPolicies | nindent 4 }}

@@ -30,6 +30,7 @@ spec:
                 - image:
                     repoURL: '{{.image}}'
             projectConfig:
+              namespace: '{{.stamp}}-{{.appName}}'
               promotionPolicies:
                 - stageSelector:
                     name: dev
