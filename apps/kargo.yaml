@@ -74,7 +74,7 @@ spec:
                                 - repoURL: '{{ .registry }}'
                                   chart: '{{ .chartName }}'
                                   updateTargetRevision: true
-                                  desiredRevision: '${{`{{`}} imageFrom("oci://registry-1.docker.io/blaaake/helm-guestbook").Tag }}'
+                                  desiredRevision: '${{`{{`}} chartFrom("oci://example.com/my-chart").Version }}'
               - name: test
                 annotations:
                   kargo.akuity.io/color: green
@@ -115,7 +115,7 @@ spec:
                                 - repoURL: '{{ .registry }}'
                                   chart: '{{ .chartName }}'
                                   updateTargetRevision: true
-                                  desiredRevision: '${{`{{`}} imageFrom("oci://registry-1.docker.io/blaaake/helm-guestbook").Tag }}'
+                                  desiredRevision: '${{`{{`}} chartFrom("oci://example.com/my-chart").Version }}'
 
       destination:
         name: kargo1
