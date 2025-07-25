@@ -64,7 +64,7 @@ spec:
                           apps:
                             - name: '{{.stamp}}-{{.appName}}-dev'
                               sources:
-                                - repoURL: '{{ .registry }}'
+                                - repoURL: '{{.registry | trimPrefix "oci://" }}'
                                   chart: '{{ .chartName }}'
                                   helm:
                                     images:
@@ -102,7 +102,7 @@ spec:
                           apps:
                             - name: '{{.stamp}}-{{.appName}}-test'
                               sources:
-                                - repoURL: '{{ .registry }}'
+                                - repoURL: '{{.registry | trimPrefix "oci://" }}'
                                   chart: '{{ .chartName }}'
                                   helm:
                                     images:
