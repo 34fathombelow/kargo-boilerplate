@@ -71,7 +71,7 @@ spec:
                                   helm:
                                     images:
                                       - key: image.tag
-                                        value: '${{`{{`}} imageFrom("ghcr.io/dhpup/guestbook").Tag }}'
+                                        value: '${{`{{`}} imageFrom("{{ .image }}").Tag }}'
 
               - name: test
                 annotations:
@@ -104,13 +104,13 @@ spec:
                             - name: '{{.stamp}}-{{.appName}}-test'
                               sources:
                                 - repoURL: '{{.registry | trimPrefix "oci://" }}'
-                                  desiredRevision: '${{`{{`}} chartFrom("oci://registry-1.docker.io/blaaake/helm-guestbook").Version }}'
+                                  desiredRevision: '${{`{{`}} chartFrom("{{ .registry }}/{{ .chartName }}").Version }}'
                                   updateTargetRevision: true
                                   chart: '{{ .chartName }}'
                                   helm:
                                     images:
                                       - key: image.tag
-                                        value: '${{`{{`}} imageFrom("ghcr.io/dhpup/guestbook").Tag }}'
+                                        value: '${{`{{`}} imageFrom("{{ .image }}").Tag }}'
 
       destination:
         name: kargo1
