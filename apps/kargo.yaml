@@ -64,8 +64,8 @@ spec:
                           apps:
                             - name: '{{.stamp}}-{{.appName}}-dev'
                               sources:
-                                - chart: '{{ .chartName }}'
-                                  repoURL: '{{ .registry }}'
+                                - repoURL: '{{ .registry }}'
+                                  chart: '{{ .chartName }}'
                                   helm:
                                     images:
                                     - repoURL: '{{ .registry }}/{{ .appName }}'
@@ -74,6 +74,7 @@ spec:
                                 - repoURL: '{{ .registry }}'
                                   chart: '{{ .chartName }}'
                                   updateTargetRevision: true
+                                  desiredRevision: '${{`{{`}} imageFrom("oci://registry-1.docker.io/blaaake/helm-guestbook", warehouse("upgrade-oci-guestbook")).Tag }}'
               - name: test
                 annotations:
                   kargo.akuity.io/color: green
