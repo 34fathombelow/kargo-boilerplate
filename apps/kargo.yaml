@@ -29,11 +29,13 @@ spec:
                     repoURL: 'oci://{{ .registry }}/{{ .chartName }}'
                 - image:
                     repoURL: '{{.image}}'
-            project:
+            projectConfig:
               promotionPolicies:
-                - stage: dev
+                - stageSelector:
+                    name: dev
                   autoPromotionEnabled: true
-                - stage: test
+                - stageSelector:
+                    name: test
                   autoPromotionEnabled: false
                 # - stage: production-<region>
                 #   autoPromotionEnabled: false
