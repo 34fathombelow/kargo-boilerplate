@@ -42,7 +42,7 @@ spec:
           parameters:
             # Kargo will update this value to move new images into each stage
             - name: image.tag
-              value: 0.1.0
+              value: 0.1.32
       destination:
         name: '{{.name}}'
         namespace: '{{coalesce .namespace .appName}}'
