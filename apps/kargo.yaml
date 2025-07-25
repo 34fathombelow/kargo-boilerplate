@@ -71,7 +71,7 @@ spec:
                                   helm:
                                     images:
                                       - key: image.tag
-                                        value: '${{`{{`}} imageFrom("ghcr.io/dhpup/guestbook").Tag }}''
+                                        value: '${{`{{`}} imageFrom("ghcr.io/dhpup/guestbook").Tag }}'
 
               - name: test
                 annotations:
