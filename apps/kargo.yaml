@@ -67,12 +67,7 @@ spec:
                                 - repoURL: '{{.registry | trimPrefix "oci://" }}'
                                   desiredRevision: '${{`{{`}} chartFrom("oci://registry-1.docker.io/blaaake/helm-guestbook").Version }}'
                                   updateTargetRevision: true
-                                - repoURL: '{{.registry | trimPrefix "oci://" }}'
-                                  chart: '{{ .chartName }}'
-                                  helm:
-                                    images:
-                                      - key: image.tag
-                                        value: Tag
+
               - name: test
                 annotations:
                   kargo.akuity.io/color: green
