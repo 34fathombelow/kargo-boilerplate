@@ -29,6 +29,12 @@ spec:
                     repoURL: '{{.registry}}/{{.chart}}'
                 - image:
                     repoURL: '{{.image}}'
+            project:
+              promotionPolicies:
+                - stage: dev
+                  autoPromotionEnabled: true
+                - stage: test
+                  autoPromotionEnabled: false
       destination:
         name: kargo1
       syncPolicy:
