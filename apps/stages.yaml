@@ -1,14 +1,10 @@
+---
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: stages
+  name: upgrade-stages-apps
   namespace: argocd
 spec:
-  ignoreApplicationDifferences:
-    - jqPathExpressions:
-        - .spec.source.targetRevision
-        - .spec.source.helm.parameters
-  goTemplate: true
   generators:
     - matrix:
         generators:
@@ -17,30 +13,43 @@ spec:
               revision: main
               files:
                 - path: "config/apps/*.yaml"
-          - git:
-              repoURL: https://github.com/34fathombelow/kargo-boilerplate.git
-              revision: main
-              files:
-                - path: "config/stages/*.yaml"
+          - clusters:
+              selector:
+                matchExpressions:
+                  - {key: 'akuity.io/argo-cd-cluster-name', operator: NotIn, values: [in-cluster,kargo1]}
+                matchLabels:
+                  stamp: upgrade
+  goTemplate: true
+  ignoreApplicationDifferences:
+    - jqPathExpressions:
+        - .spec.source.targetRevision
+        - .spec.source.helm.parameters
   template:
     metadata:
-      name: '{{.appName}}-{{.stageName}}'
+      name: '{{ index .metadata.labels "stamp" }}-{{.appName}}-{{ index .metadata.labels "environment" }}'
       annotations:
-        kargo.akuity.io/authorized-stage: '{{.appName}}:{{.stageName}}'
+        kargo.akuity.io/authorized-stage: '{{ index .metadata.labels "stamp" }}-{{.appName}}:{{ index .metadata.labels "environment" }}'
     spec:
       project: kargo-project
       source:
-        repoURL: '{{.registry | trimPrefix "oci://" }}'
-        chart: '{{.chart}}'
+        repoURL: '{{.registry}}'
+        chart: '{{ .chartName }}'
         # Kargo will update targetRevision to move new charts into each stage
-        targetRevision: 0.1.1 # Initial value needs to exist in remote repo, subsequent revisions will be handled by Kargo.
+        targetRevision: v0.1.0 # Initial value needs to exist in remote repo, subsequent revisions will be handled by Kargo.
         helm:
           valueFiles:
-            - 'values-{{.stageName}}.yaml' # This is a values file that is _baked into_ the OCI Helm chart.
+            - 'values-{{ index .metadata.labels "environment" }}.yaml' # This is a values file that is _baked into_ the OCI Helm chart.
+          parameters:
+            # Kargo will update this value to move new images into each stage
+            - name: image.tag
+              value: v0.1.0
       destination:
-        name: '{{.stageName}}'
-        namespace: '{{.appName}}'
-      # Autosync NOT enabled for application stages, since the syncing is managed via Kargo.
+        name: '{{.name}}'
+        namespace: '{{coalesce .namespace .appName}}'
       syncPolicy:
+        automated:
+          prune: true
+          allowEmpty: true
+          selfHeal: true
         syncOptions:
           - CreateNamespace=true

@@ -3,10 +3,8 @@
 # Declare variables to be passed into your templates.
 
 project:
-  create: true
   promotionPolicies: []
 warehouse:
-  create: true
-  requestedFreight: []
+  subscriptions: []
 stages: []
 analysisTemplates: []
