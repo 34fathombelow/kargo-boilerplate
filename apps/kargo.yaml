@@ -104,8 +104,8 @@ spec:
                           apps:
                             - name: '{{.stamp}}-{{.appName}}-test'
                               sources:
-                                - chart: '{{ .chartName }}'
-                                  repoURL: '{{ .registry }}'
+                                - repoURL: '{{ .registry }}'
+                                  chart: '{{ .chartName }}'
                                   helm:
                                     images:
                                     - repoURL: '{{ .registry }}/{{ .appName }}'
@@ -114,6 +114,7 @@ spec:
                                 - repoURL: '{{ .registry }}'
                                   chart: '{{ .chartName }}'
                                   updateTargetRevision: true
+                                  desiredRevision: ${{ imageFrom("{{ .registry }}", warehouse("upgrade-oci-guestbook")).Tag }}
       destination:
         name: kargo1
       syncPolicy:
