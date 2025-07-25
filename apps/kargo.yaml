@@ -33,7 +33,7 @@ spec:
               promotionPolicies:
                 - stage: dev
                   autoPromotionEnabled: true
-                - stage: staging
+                - stage: test
                   autoPromotionEnabled: false
                 # - stage: production-<region>
                 #   autoPromotionEnabled: false
