@@ -6,13 +6,11 @@ metadata:
 spec:
   goTemplate: true
   generators:
-    - matrix:
-        generators:
-          - git:
-              repoURL: https://github.com/34fathombelow/kargo-boilerplate.git
-              revision: main
-              files:
-                - path: "config/apps/*.yaml"
+    - git:
+        repoURL: https://github.com/34fathombelow/kargo-boilerplate.git
+        revision: main
+        files:
+          - path: "config/apps/*.yaml"
   template:
     metadata:
       name: '{{.stamp}}-kargo-{{.appName}}'
