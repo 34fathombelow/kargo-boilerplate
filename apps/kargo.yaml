@@ -26,11 +26,9 @@ spec:
             warehouse:
               subscriptions:
                 - chart:
-                    repoURL: 'oci://{{ .registry }}/{{ .chartName }}'
-                    semverConstraint: "*"
+                    repoURL: '{{ .registry }}/{{ .chartName }}'
                 - image:
-                    repoURL: '{{ .registry }}/{{ .appName }}'
-                    semverConstraint: '*'
+                    repoURL: '{{.image}}'
             project:
               promotionPolicies:
                 - stage: dev
@@ -76,7 +74,7 @@ spec:
                                 - repoURL: '{{ .registry }}'
                                   chart: '{{ .chartName }}'
                                   updateTargetRevision: true
-              - name: preview
+              - name: test
                 annotations:
                   kargo.akuity.io/color: green
                 requestedFreight:
@@ -85,7 +83,7 @@ spec:
                       name: '{{.stamp}}-{{.appName}}'
                     sources:
                       stages:
-                        - staging
+                        - dev
                 # shard: <kargo_agent_for_preview>
                 # verification:
                 #   analysisTemplates:
