@@ -65,7 +65,7 @@ spec:
                             - name: '{{.stamp}}-{{.appName}}-dev'
                               sources:
                                 - repoURL: '{{ .registry }}'
-                                  desiredRevision: '${{`{{`}} chartFrom("{{ .registry }}/{{ .chartName }}").Version }}'
+                                  desiredRevision: '${{`{{`}} chartFrom("oci://{{ .registry }}/{{ .chartName }}").Version }}'
                                   updateTargetRevision: true
                                   chart: '{{ .chartName }}'
                                   helm:
@@ -106,7 +106,7 @@ spec:
                             - name: '{{.stamp}}-{{.appName}}-test'
                               sources:
                                 - repoURL: '{{ .registry }}'
-                                  desiredRevision: '${{`{{`}} chartFrom("{{ .registry }}/{{ .chartName }}").Version }}'
+                                  desiredRevision: '${{`{{`}} chartFrom("oci://{{ .registry }}/{{ .chartName }}").Version }}'
                                   updateTargetRevision: true
                                   chart: '{{ .chartName }}'
                                   helm:
