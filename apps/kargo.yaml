@@ -64,7 +64,7 @@ spec:
                           apps:
                             - name: '{{.stamp}}-{{.appName}}-dev'
                               sources:
-                                - repoURL: '{{.registry | trimPrefix "oci://" }}'
+                                - repoURL: '{{ .registry }}'
                                   desiredRevision: '${{`{{`}} chartFrom("{{ .registry }}/{{ .chartName }}").Version }}'
                                   updateTargetRevision: true
                                   chart: '{{ .chartName }}'
@@ -72,6 +72,8 @@ spec:
                                     images:
                                       - key: image.tag
                                         value: '${{`{{`}} imageFrom("{{ .image }}").Tag }}'
+                                        # Another variant when image comes from same registry and used app name
+                                        # value: '${{`{{`}} imageFrom("{{ .registry }}/{{ .appName }}").Tag }}'
 
               - name: test
                 annotations:
@@ -103,7 +105,7 @@ spec:
                           apps:
                             - name: '{{.stamp}}-{{.appName}}-test'
                               sources:
-                                - repoURL: '{{.registry | trimPrefix "oci://" }}'
+                                - repoURL: '{{ .registry }}'
                                   desiredRevision: '${{`{{`}} chartFrom("{{ .registry }}/{{ .chartName }}").Version }}'
                                   updateTargetRevision: true
                                   chart: '{{ .chartName }}'

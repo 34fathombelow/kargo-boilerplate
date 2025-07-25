@@ -1,5 +1,5 @@
 appName: oci-guestbook
-registry: oci://registry-1.docker.io/blaaake
+registry: registry-1.docker.io/blaaake
 chartName: helm-guestbook
 image: ghcr.io/dhpup/guestbook
 namespace: null
